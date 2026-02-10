@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting for Special Day...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container" id="mainContainer">
+        <button class="sound-toggle" id="soundBtn">🔇</button>
+
+        <div class="timer-wrapper">
+            <div class="time-unit">
+                <span class="number" id="days">00</span>
+                <span class="label">วัน</span>
+            </div>
+            <div class="time-unit">
+                <span class="number" id="hours">00</span>
+                <span class="label">ชั่วโมง</span>
+            </div>
+            <div class="time-unit">
+                <span class="number" id="minutes">00</span>
+                <span class="label">นาที</span>
+            </div>
+            <div class="time-unit">
+                <span class="number" id="seconds">00</span>
+                <span class="label">วินาที</span>
+            </div>
+        </div>
+
+        <div class="message-box" id="dynamicMessage">
+            กำลังโหลดเวลา...
+        </div>
+
+        <button class="enter-btn" id="enterBtn">🔒 ยังไม่ถึงเวลา</button>
+    </div>
+
+    <div id="toast" class="toast">ข้อความแจ้งเตือน</div>
+
+    <audio id="tickSound" loop>
+        <source src="\Asset\Music\tick.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="alarmSound">
+        <source src="\Asset\Music\alarm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

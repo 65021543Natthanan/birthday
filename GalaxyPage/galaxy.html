@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy of Memories</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="galaxy-style.css">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+    <!-- Three.js Canvas Container -->
+    <div id="galaxy-container"></div>
+
+    <!-- UI Overlay -->
+    <div class="ui-overlay">
+        <h1 class="galaxy-title">Galaxy of Memories</h1>
+        <p class="galaxy-subtitle">จักรวาลแห่งความทรงจำของเรา</p>
+
+        <!-- Launch Button -->
+        <button class="launch-btn" id="launchBtn">
+            🚀 Launch New Memory
+        </button>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <p>💫 คลิกที่ดวงดาวเพื่อดูความทรงจำ</p>
+        </div>
+    </div>
+
+    <!-- Memory Modal (Glassmorphism) -->
+    <div class="memory-modal" id="memoryModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeBtn">✕</button>
+            <div class="modal-image-container" id="modalImage">
+                <!-- Image will be inserted here -->
+            </div>
+            <h2 class="modal-title" id="modalTitle">Memory Title</h2>
+            <p class="modal-date" id="modalDate">Date</p>
+            <p class="modal-message" id="modalMessage">Message</p>
+            <span class="modal-category" id="modalCategory">Category</span>
+        </div>
+    </div>
+
+    <!-- Launch Form Modal -->
+    <div class="launch-modal" id="launchModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeLaunchBtn">✕</button>
+            <h2>🚀 Launch a New Memory</h2>
+
+            <form id="launchForm">
+                <div class="form-group">
+                    <label for="memoryTitle">หัวข้อ</label>
+                    <input type="text" id="memoryTitle" required placeholder="เช่น วันที่เราเจอกันครั้งแรก">
+                </div>
+
+                <div class="form-group">
+                    <label for="memoryDate">วันที่</label>
+                    <input type="date" id="memoryDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="memoryCategory">หมวดหมู่</label>
+                    <select id="memoryCategory" required>
+                        <option value="Friendship">👫 Friendship</option>
+                        <option value="Adventure">🎯 Adventure</option>
+                        <option value="Funny">😂 Funny</option>
+                        <option value="Special">🌟 Special</option>
+                        <option value="Other">🎲 Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="memoryMessage">ข้อความ</label>
+                    <textarea id="memoryMessage" rows="4" required placeholder="เล่าความทรงจำนี้..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="memoryImage">รูปภาพ (ไม่บังคับ)</label>
+                    <input type="file" id="memoryImage" accept="image/*">
+                    <small>รองรับ: JPG, PNG (ขนาดไม่เกิน 5MB)</small>
+                </div>
+
+                <button type="submit" class="submit-btn">🚀 Launch!</button>
+            </form>
+
+            <!-- Rocket Animation Container -->
+            <div class="rocket-animation" id="rocketAnimation">
+                <div class="rocket">🚀</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Loading the galaxy...</p>
+        </div>
+    </div>
+
+    <!-- Background Music (continues from previous pages) -->
+    <audio id="bgMusic" loop>
+        <source src="../Asset/Music/Theme_song_1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="galaxy-script.js"></script>
+</body>
+
+</html>

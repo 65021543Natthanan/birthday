@@ -1,0 +1,433 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', 'Quicksand', sans-serif;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: #000000;
+    color: #ffffff;
+    animation: fadeInPage 0.8s ease-out;
+}
+
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===== THREE.JS CONTAINER ===== */
+#galaxy-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* ===== UI OVERLAY ===== */
+.ui-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 20px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.galaxy-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff 0%, #a8daff 50%, #ff6b9d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(168, 218, 255, 0.5);
+    margin-bottom: 10px;
+}
+
+.galaxy-subtitle {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+
+/* ===== LAUNCH BUTTON ===== */
+.launch-btn {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 15px 40px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.6), rgba(65, 105, 225, 0.6));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    pointer-events: all;
+    box-shadow:
+        0 8px 32px rgba(138, 43, 226, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.launch-btn:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 40px rgba(138, 43, 226, 0.6),
+        inset 0 0 30px rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== INSTRUCTIONS ===== */
+.instructions {
+    text-align: center;
+}
+
+.instructions p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 5px 0;
+}
+
+/* ===== MEMORY MODAL (Glassmorphism) ===== */
+.memory-modal,
+.launch-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.memory-modal.active,
+.launch-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 600px;
+    width: 90%;
+    max-height: 85vh;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.5),
+        inset 0 0 30px rgba(255, 255, 255, 0.05);
+    overflow-y: auto;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.memory-modal.active .modal-content,
+.launch-modal.active .modal-content {
+    transform: scale(1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+/* ===== MODAL IMAGE ===== */
+.modal-image-container {
+    width: 100%;
+    min-height: 180px;
+    max-height: 260px;
+
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    display: flex;      
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image-container img {
+    /*width: 100%;
+    height: auto;
+    display: block;*/
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+}
+
+.modal-image-container.hidden {
+    display: none;
+}
+
+/* ===== MODAL TEXT ===== */
+.modal-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #a8daff;
+    margin-bottom: 10px;
+}
+
+.modal-date {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.modal-message {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+}
+
+.modal-category {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(138, 43, 226, 0.3);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+/* ===== LAUNCH FORM ===== */
+.launch-modal .modal-content {
+    max-width: 500px;
+}
+
+.launch-modal h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.8rem;
+    color: #a8daff;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(138, 43, 226, 0.6);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== FIX SELECT DROPDOWN (OPTIONS) ===== */
+.form-group select {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* ตัวรายการใน dropdown */
+.form-group select option {
+  background: #323232;   /* พื้นหลังเข้ม */
+  color: #ffffff;        /* ตัวอักษรขาว */
+}
+
+/* (อาจรองรับไม่ครบทุก browser แต่ใส่ไว้ได้) */
+.form-group select option:checked,
+.form-group select option:hover {
+  background: #323232;
+  color: #ffffff;
+}
+
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.6), rgba(65, 105, 225, 0.6));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(65, 105, 225, 0.8));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
+}
+
+/* ===== ROCKET ANIMATION ===== */
+.rocket-animation {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.rocket-animation.active {
+    display: block;
+}
+
+.rocket {
+    font-size: 5rem;
+    animation: rocketLaunch 2s ease-out forwards;
+}
+
+@keyframes rocketLaunch {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+/* ===== LOADING SCREEN ===== */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border: 4px solid rgba(138, 43, 226, 0.3);
+    border-top: 4px solid #8a2be2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-content p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 30px 20px;
+        max-height: 90vh;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .galaxy-title {
+        font-size: 2rem;
+    }
+}
