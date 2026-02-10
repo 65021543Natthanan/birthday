@@ -1,7 +1,7 @@
 // --- 1. CONFIGURATION ---
 // ตั้งเวลาเป้าหมาย: ปี 2025, เดือนกุมภาพันธ์ (Index คือ 1), วันที่ 11, เวลา 00:00:00
 // *** อย่าลืมเปลี่ยน '2025' เป็นปีปัจจุบันหรือปีหน้าที่ต้องการเซอร์ไพรส์ ***
-const birthday = new Date(2026, 1, 11, 00, 55, 50).getTime();
+const birthday = new Date(2026, 1, 11, 00, 57, 50).getTime();
 
 // ข้อความกวนๆ ตอนยังไม่ถึงเวลา
 const funnyMessages = [
@@ -217,6 +217,7 @@ function unlockSurprise() {
     enterBtn.classList.remove('enter-btn-locked');
 
 }
+
 
 
 
